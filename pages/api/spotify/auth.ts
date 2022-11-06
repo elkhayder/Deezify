@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { app_uri } from "../../../include/utils";
 import querystring from "querystring";
 import { setCookie } from "cookies-next";
+import { CookiesTitles } from "../../../include/constants";
 
 type Data = {};
 
@@ -35,7 +36,7 @@ export default async function handler(
    // TODO: Handle request failure
 
    // Save Access token in cookies
-   setCookie("spotify_token", token_request.data.access_token, {
+   setCookie(CookiesTitles.spotify, token_request.data.access_token, {
       req,
       res,
       maxAge: token_request.data.expires_in,

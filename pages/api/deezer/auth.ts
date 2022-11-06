@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { setCookie } from "cookies-next";
+import { CookiesTitles } from "../../../include/constants";
 
 type Data = {};
 
@@ -26,11 +27,14 @@ export default async function handler(
       }
    );
 
+   // res.json(token_request.data);
+
    // Save Access token in cookies
-   setCookie("deezer_token", token_request.data.access_token, {
+   setCookie(CookiesTitles.deezer, token_request.data.access_token, {
       req,
       res,
-      maxAge: token_request.data.expires ?? 3600,
+      maxAge:
+         token_request.data.expires !== 0 ? token_request.data.expires : 3600,
    });
 
    res.redirect("/");
